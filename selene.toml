@@ -1,4 +1,4 @@
-std = "roblox"
+std = "lua"
 
 [lints]
 empty_if = "allow"

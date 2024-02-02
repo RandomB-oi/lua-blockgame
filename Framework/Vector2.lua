@@ -43,4 +43,6 @@ function module:__mul(other)
     return module.new(self.X * other.X, self.Y * other.Y)
 end
 
+Class.RegisterClass("Vector2", module)
+
 return module
