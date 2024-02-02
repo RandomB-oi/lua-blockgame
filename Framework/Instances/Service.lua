@@ -14,4 +14,8 @@ end
 
 Class.RegisterClass("Service", module)
 
+module.Init = function()
+    Class.new("CollectionService", "CollectionService")
+end
+
 return module

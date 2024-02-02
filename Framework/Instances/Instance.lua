@@ -1,5 +1,5 @@
 local module = {}
-module.__index = {}
+module.__index = module
 
 
 local serial = 0
@@ -57,7 +57,15 @@ function module:GetAttributes()
 end
 
 function module:HasTag(tag)
-    return Class.GetClass("Service"):HasTag(self, tag)
+    return Class.GetClass("Service").GetService("CollectionService"):HasTag(self, tag)
+end
+
+function module:AddTag(tag)
+    return Class.GetClass("Service").GetService("CollectionService"):AddTag(self, tag)
+end
+
+function module:RemoveTag(tag)
+    return Class.GetClass("Service").GetService("CollectionService"):RemoveTag(self, tag)
 end
 
 Class.RegisterClass("Instance", module)

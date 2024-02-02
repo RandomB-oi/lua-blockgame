@@ -9,6 +9,13 @@ module.find = function(tbl, value)
 	end
 end
 
+module.findRemove = function (tbl, value)
+	local index = module.find(tbl, value)
+	if index then
+		table.remove(tbl, index)
+	end
+end
+
 -- local regRemove = table.remove
 -- module.remove = function(tbl, index)
 -- 	if tbl then

@@ -17,6 +17,9 @@ local function load()
     Class.LoadDirectory("Game", true)
 
     Class.Begin()
+    print("done loading")
+
+    local newBox = Class.new("Box")
 end
 
 local function update(dt)

@@ -71,7 +71,7 @@ Module.new = function(name, ...)
 	while true do
 		local parentClass = Module.GetClass(parentClassName)
 		parentClass.Name = parentClassName
-		local derives = rawget(parentClass, "Derives")
+		local derives = rawget(parentClass, "__derives")
 		if derives then
 			if not setmetatableModules[parentClassName] then
 				setmetatableModules[parentClassName] = true
@@ -101,22 +101,14 @@ end
 
 Module.IsA = function(class, className)
 	if class.Name == className then return true end
-	if class.Derives then
-		return Module.IsA(Module.GetClass(class.Derives), className)
+    local derives = rawget(class, "__derives")
+	if derives then
+		return Module.IsA(Module.GetClass(derives), className)
 	end
 end
 
 Module.LoadDirectory = function(directory, descendants)
-
-
-
-
-
-
-    local tbl = {}
-
     local directories = {}
-    local files = {}
     
     for i, fileName in pairs(love.filesystem.getDirectoryItems(directory)) do
         local isDirectory do
@@ -147,7 +139,7 @@ Module.LoadDirectory = function(directory, descendants)
     
     if descendants then
         for _ , info in ipairs(directories) do
-            tbl[info.name] = Module.LoadDirectory(info.directory, descendants)
+            Module.LoadDirectory(info.directory, descendants)
         end
     end
 end

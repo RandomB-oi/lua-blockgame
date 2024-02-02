@@ -38,13 +38,13 @@ end
 function module:GetTagged(tagName)
     self:RegisterTag(tagName)
 
-    return
+    return self.TaggedInstances[tagName]
 end
 
 function module:HasTag(object, tag)
     self:RegisterTag(tag)
     
-    return object.Tags[tag]
+    return not not table.find(object.Tags, tag)
 end
 
 function module:AddTag(object, tag)
@@ -52,20 +52,20 @@ function module:AddTag(object, tag)
     
     if self:HasTag(object, tag) then return end
 
-    object.Tags[tag] = true
-    self.TaggedInstances[tag][object] = true
+    table.insert(object.Tags, tag)
+    table.insert(self.TaggedInstances[tag], object)
 
-    self.InstanceAddedSignals:Fire(object)
+    self.InstanceAddedSignals[tag]:Fire(object)
 end
 
 function module:RemoveTag(object, tag)
     self:RegisterTag(tag)
     if not self:HasTag(object, tag) then return end
     
-    object.Tags[tag] = nil
-    self.TaggedInstances[tag][object] = nil
+    table.findRemove(object.Tags, tag)
+    table.findRemove(self.TaggedInstances[tag], object)
     
-    self.InstanceRemovedSignals:Fire(object)
+    self.InstanceRemovedSignals[tag]:Fire(object)
 end
 
 Class.RegisterClass("CollectionService", module)
