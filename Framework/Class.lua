@@ -6,7 +6,7 @@ local RequiredModules = {}
 local AlreadyRequiredModules = {}
 
 local function GameDoneLoading()
-    local CollectionService = Class.GetClass("Service"):GetService("CollectionService")
+    local CollectionService = GetService("CollectionService")
 	for name, component in pairs(Components) do
 		local function newObject(object)
 			if component.Objects[object] then return end

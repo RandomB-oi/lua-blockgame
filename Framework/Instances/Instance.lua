@@ -23,6 +23,9 @@ module.new = function(name, specificId)
     self.Tags = {}
     self.Attributes = {}
     self.AttributeChangedSignals = {}
+
+    self.Size = Vector2.new(100, 100)
+    self.CFrame = CFrame.new(0, 0, 0)
     
     self.ID = specificId or GenerateId()
     module.All[self.ID] = self
@@ -57,15 +60,15 @@ function module:GetAttributes()
 end
 
 function module:HasTag(tag)
-    return Class.GetClass("Service").GetService("CollectionService"):HasTag(self, tag)
+    return GetService("CollectionService"):HasTag(self, tag)
 end
 
 function module:AddTag(tag)
-    return Class.GetClass("Service").GetService("CollectionService"):AddTag(self, tag)
+    return GetService("CollectionService"):AddTag(self, tag)
 end
 
 function module:RemoveTag(tag)
-    return Class.GetClass("Service").GetService("CollectionService"):RemoveTag(self, tag)
+    return GetService("CollectionService"):RemoveTag(self, tag)
 end
 
 Class.RegisterClass("Instance", module)

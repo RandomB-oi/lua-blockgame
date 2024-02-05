@@ -8,14 +8,16 @@ module.new = function(self)
     module.Services[self.Name] = self
 end
 
-module.GetService = function(name, name2)
-    return module.Services[name2 or name] -- can call with : or .
+GetService = function(name)
+    return module.Services[name]
 end
+module.GetService = GetService
 
 Class.RegisterClass("Service", module)
 
 module.Init = function()
     Class.new("CollectionService", "CollectionService")
+    Class.new("RunService", "RunService")
 end
 
 return module

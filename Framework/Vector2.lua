@@ -17,6 +17,13 @@ function module:Unit()
     return self/self:Length()
 end
 
+function module:Lerp(other, a)
+    return module.new(
+        math.lerp(self.X, other.X, a),
+        math.lerp(self.Y, other.Y, a)
+    )
+end
+
 function module:__add(other)
     return module.new(self.X + other.X, self.Y + other.Y)
 end
