@@ -5,7 +5,7 @@ local Components = {}
 local RequiredModules = {}
 local AlreadyRequiredModules = {}
 
-local function GameDoneLoading()
+local function BindComponents()
     local CollectionService = GetService("CollectionService")
 	for name, component in pairs(Components) do
 		local function newObject(object)
@@ -37,6 +37,7 @@ local function InitGame()
 			has()
 		end
 	end
+	BindComponents()
 end
 local function StartGame()
 	for _, v in pairs(RequiredModules) do
@@ -45,7 +46,6 @@ local function StartGame()
 			has()
 		end
 	end
-	GameDoneLoading()
 end
 
 Module.GetClass = function(name)

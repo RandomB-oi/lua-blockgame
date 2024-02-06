@@ -1,7 +1,6 @@
 local module = {}
 module.__index = module
 
-
 local serial = 0
 local function GenerateId()
     serial = serial + 1

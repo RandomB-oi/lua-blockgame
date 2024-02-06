@@ -19,6 +19,8 @@ end
 -- makes it point its rightVector towards the point
 module.LookAt = function(from, to)
     local diff = to - from
+
+    return module.new(from.X, from.Y, math.atan2(diff.Y, diff.X))
 end
 
 function module:UpVector()
