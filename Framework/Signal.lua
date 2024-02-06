@@ -46,12 +46,12 @@ function module:Wait()
 end
 
 local unknownOrder = 25
-local doOrderedSignals = true
+local doOrderedSignals = false
 
 function module:Fire(...)
 	local args = {...}
 	if doOrderedSignals then
-		local s,e = pcall(function()
+		xpcall(function()
 			local orderedConnections = {}
 			for _, connection in pairs(self.connections) do
 				if type(connection) == "table" then
@@ -79,7 +79,7 @@ function module:Fire(...)
 					end, unpack(args))
 				end
 			end
-		end)
+		end, print)
 	else
 		for _, connection in pairs(self.connections) do
 			if type(connection) == "table" then

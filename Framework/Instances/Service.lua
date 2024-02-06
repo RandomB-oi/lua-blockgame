@@ -18,6 +18,7 @@ Class.RegisterClass("Service", module)
 module.Init = function()
     Class.new("CollectionService", "CollectionService")
     Class.new("RunService", "RunService")
+    Class.new("UserInputService", "UserInputService")
 end
 
 return module

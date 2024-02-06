@@ -16,6 +16,11 @@ module.new = function(x,y, r)
     return self
 end
 
+-- makes it point its rightVector towards the point
+module.LookAt = function(from, to)
+    local diff = to - from
+end
+
 function module:UpVector()
     local a = self.R
     return Vector2.new(math.sin(a), -math.cos(a))
