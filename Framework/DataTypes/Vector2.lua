@@ -9,6 +9,14 @@ module.new = function(x,y)
     return self
 end
 
+module.FromAngle = function(angle) -- in radians
+	return module.new(math.sin(angle), -math.cos(angle))
+end
+
+function module:GetAngle()
+	return math.atan2(-self.Y, self.X)
+end
+
 function module:Length()
     return math.sqrt(self.X ^ 2 + self.Y ^ 2)
 end

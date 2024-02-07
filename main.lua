@@ -7,14 +7,18 @@ local function load()
 
     Class = require("Framework.Class")
 
-    Maid = require("Framework.Maid")
-    Signal = require("Framework.Signal")
+    Maid = require("Framework.DataTypes.Maid")
+    Signal = require("Framework.DataTypes.Signal")
 
-    Vector2 = require("Framework.Vector2")
-    CFrame = require("Framework.CFrame")
-    Color4 = require("Framework.Color4")
-    UDim = require("Framework.UDim")
-    UDim2 = require("Framework.UDim2")
+    Vector2 = require("Framework.DataTypes.Vector2")
+    CFrame = require("Framework.DataTypes.CFrame")
+    Color4 = require("Framework.DataTypes.Color4")
+    UDim = require("Framework.DataTypes.UDim")
+    UDim2 = require("Framework.DataTypes.UDim2")
+
+    NumberRange = require("Framework.DataTypes.NumberRange")
+    NumberSequence = require("Framework.DataTypes.NumberSequence")
+    ColorSequence = require("Framework.DataTypes.ColorSequence")
 
     Class.LoadDirectory("Framework", true)
     Class.LoadDirectory("Game", true)

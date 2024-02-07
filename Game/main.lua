@@ -73,23 +73,29 @@ module.Start = function()
     box:SetParent(topBar)
     box2:SetParent(topBar)
 
+    local emitter = Class.new("ParticleEmitter")
+    local emitterTransform = emitter:GetTransform()
+
+    run.Update:Connect(function()
+        local mx,my = love.mouse.getPosition()
+        emitterTransform.CFrame = CFrame.new(mx, my)
+    end)
+
     uis.InputBegan:Connect(function(input, gp)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
 
             local mx,my = love.mouse.getPosition()
 
-            for i = 1, 10 do
-                local new = Class.new("Instance")
-                new:AddTag("Transform")
-                local transform = new:GetComponent("Transform")
-                transform.Size = Vector2.new(20, 10)
-                transform.CFrame = CFrame.LookAt(Vector2.new(400, 300), Vector2.new(mx, my)) * CFrame.new(0, -100 + i * 20, 0)
+            local new = Class.new("Instance")
+            new:AddTag("Transform")
+            local transform = new:GetComponent("Transform")
+            transform.Size = Vector2.new(20, 10)
+            transform.CFrame = CFrame.LookAt(Vector2.new(400, 300), Vector2.new(mx, my))
 
-                new:SetAttribute("ProjectileSpeed", 100)
-                new:AddTag("Projectile")
-                new:AddTag("BoxRenderer")
-                -- new.CFrame = CFrame.new(0, 0, 0)
-            end
+            new:SetAttribute("ProjectileSpeed", 100)
+            new:AddTag("Projectile")
+            new:AddTag("BoxRenderer")
+            -- new.CFrame = CFrame.new(0, 0, 0)
         end
         if input.KeyCode == Enum.KeyCode.W then
         end
