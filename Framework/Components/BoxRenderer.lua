@@ -28,10 +28,23 @@ function module.new(self)
 
 	self.Color = Color4.new(1,1,1,1)
 	self.Maid:GiveTask(run.Draw:Connect(function()
-		local cf, size, color = self.Object.CFrame, self.Object.Size, self.Color
+		local transform = self.Object:GetTransform()
+		if not transform then return end
+
+		if self.Object.Parent then
+			self.Object.Parent._drawn:Wait()
+		end
+
+		local cf, size = CFrame.new(transform.RenderPosition.X, transform.RenderPosition.Y, transform.RenderRotation), transform.RenderSize
+		if transform:IsA("GuiTransform") then
+			cf = cf * CFrame.new(size.X/2, -size.Y/2)
+		end
+		local color = self.Color
+
 		DrawRectangle(cf, size, color)
-		DrawRectangle(cf * CFrame.new(0, 50), Vector2.new(10, 10), red)
-		DrawRectangle(cf * CFrame.new(50, 0), Vector2.new(10, 10), green)
+		-- DrawRectangle(cf * CFrame.new(0, 50), Vector2.new(10, 10), red)
+		-- DrawRectangle(cf * CFrame.new(50, 0), Vector2.new(10, 10), green)
+		self.Object._drawn:Fire()
 	end))
 
 	return self

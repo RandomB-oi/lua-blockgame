@@ -41,22 +41,37 @@ module.Start = function()
     -- end)
     
 
-    local box = Class.new("GuiInstance")
-    box:AddTag("GuiRenderer")
-    box.Position = UDim2.new(0, 6, 0, 6)
-    box.Size = UDim2.new(.5, -6, 1, -12)
-    box.AnchorPoint = Vector2.new(0, 0)
+    local box = Class.new("Instance")
+    box:AddTag("GuiTransform")
+    box:AddTag("BoxRenderer")
+    local boxTransform = box:GetTransform()
+    boxTransform.Position = UDim2.new(0, 6, 0, 6)
+    boxTransform.Size = UDim2.new(.5, -9, 1, -12)
+    boxTransform.AnchorPoint = Vector2.new(0, 0)
 
-    local topBar = Class.new("GuiInstance")
-    topBar:AddTag("GuiRenderer")
-    local rendererComponent = Class.GetComponent(topBar, "GuiRenderer")
+    local box2 = Class.new("Instance")
+    box2:AddTag("GuiTransform")
+    box2:AddTag("BoxRenderer")
+    local box2Transform = box2:GetTransform()
+    box2Transform.Position = UDim2.new(1, -6, 0, 6)
+    box2Transform.Size = UDim2.new(.5, -9, 1, -12)
+    box2Transform.AnchorPoint = Vector2.new(1, 0)
+
+    local topBar = Class.new("Instance")
+    topBar:AddTag("GuiTransform")
+    topBar:AddTag("BoxRenderer")
+
+    local rendererComponent = Class.GetComponent(topBar, "BoxRenderer")
     rendererComponent.Color = Color4.new(1,0,0,0.5)
-    topBar.Position = UDim2.new(0.5, 0, 0, 6)
-    topBar.Size = UDim2.new(1, -12, 0.2, -6)
-    topBar.AnchorPoint = Vector2.new(0.5, 0)
 
-    box.Parent = topBar
-    -- box:SetParent(topBar)
+    local topbarTransform = topBar:GetTransform()
+    topbarTransform.Position = UDim2.new(0.5, 0, 0, 6)
+    topbarTransform.Size = UDim2.new(1, -12, 0.2, -6)
+    topbarTransform.AnchorPoint = Vector2.new(0.5, 0)
+    -- topBar.Rotation = 45
+
+    box:SetParent(topBar)
+    box2:SetParent(topBar)
 
     uis.InputBegan:Connect(function(input, gp)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -64,13 +79,16 @@ module.Start = function()
             local mx,my = love.mouse.getPosition()
 
             for i = 1, 10 do
-                local new = Class.new("Box")
-                new.Size = Vector2.new(20, 10)
+                local new = Class.new("Instance")
+                new:AddTag("Transform")
+                local transform = new:GetComponent("Transform")
+                transform.Size = Vector2.new(20, 10)
+                transform.CFrame = CFrame.LookAt(Vector2.new(400, 300), Vector2.new(mx, my)) * CFrame.new(0, -100 + i * 20, 0)
+
                 new:SetAttribute("ProjectileSpeed", 100)
                 new:AddTag("Projectile")
                 new:AddTag("BoxRenderer")
                 -- new.CFrame = CFrame.new(0, 0, 0)
-                new.CFrame = CFrame.LookAt(Vector2.new(400, 300), Vector2.new(mx, my)) * CFrame.new(0, -100 + i * 20, 0)
             end
         end
         if input.KeyCode == Enum.KeyCode.W then

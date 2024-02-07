@@ -13,7 +13,8 @@ function module.new(self)
             self.Object:Destroy()
             return
         end
-        self.Object.CFrame = self.Object.CFrame * CFrame.new(self.Object:GetAttribute("ProjectileSpeed") * dt, 0)
+        local transform = self.Object:GetTransform()
+        transform.CFrame = transform.CFrame * CFrame.new(self.Object:GetAttribute("ProjectileSpeed") * dt, 0)
     end))
 	return self
 end

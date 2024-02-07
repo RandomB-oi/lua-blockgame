@@ -21,11 +21,12 @@ module.new = function(name, specificId)
     self.Name = name or "Object"
     self.Tags = {}
     self.Attributes = {}
+    self.Children = {}
     self.AttributeChangedSignals = {}
 
-    self.Size = Vector2.new(100, 100)
-    self.CFrame = CFrame.new(0, 0, 0)
-    
+	self._drawn = Class.new("Signal")
+	self.Maid:GiveTask(self._drawn)
+
     self.ID = specificId or GenerateId()
     module.All[self.ID] = self
     self.Maid:GiveTask(function()
@@ -79,6 +80,24 @@ end
 
 function module:GetTags()
     return GetService("CollectionService"):GetTags(self)
+end
+
+function module:GetComponent(name)
+    return Class.GetComponent(self, name)
+end
+
+function module:GetTransform()
+    return self:GetComponent("Transform") or self:GetComponent("GuiTransform")
+end
+
+function module:SetParent(newParent)
+    if self.Parent then
+        table.findRemove(self.Parent.Children, self)
+    end
+    self.Parent = newParent
+    if newParent then
+        table.insert(newParent.Children, newParent)
+    end
 end
 
 Class.RegisterClass("Instance", module)
