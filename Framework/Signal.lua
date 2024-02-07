@@ -83,9 +83,7 @@ function module:Fire(...)
 	else
 		for _, connection in pairs(self.connections) do
 			if type(connection) == "table" then
-				xpcall(coroutine.wrap(connection._callback), function(err)
-					warn(err, debug.traceback())
-				end, unpack(args))
+				xpcall(coroutine.wrap(connection._callback), print, unpack(args))
 			end
 		end
 	end

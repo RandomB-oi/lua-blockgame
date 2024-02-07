@@ -1,6 +1,6 @@
 local module = {}
 module.__index = module
-module.__derives = "Instance"
+module.__derives = "CSInstance"
 
 module.new = function(self)
     self:AddTag("BoxRenderer")

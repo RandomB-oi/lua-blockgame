@@ -35,6 +35,13 @@ module.new = function(name, specificId)
     return self
 end
 
+function module:Destroy()
+    for i,v in pairs(self:GetTags()) do
+        self:RemoveTag(v)
+    end
+    self.Maid:Destroy()
+end
+
 function module:GetAttributeChangedSignal(name)
     if self.AttributeChangedSignals[name] then
         return self.AttributeChangedSignals[name]
@@ -68,6 +75,10 @@ end
 
 function module:RemoveTag(tag)
     return GetService("CollectionService"):RemoveTag(self, tag)
+end
+
+function module:GetTags()
+    return GetService("CollectionService"):GetTags(self)
 end
 
 Class.RegisterClass("Instance", module)

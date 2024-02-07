@@ -68,6 +68,10 @@ function module:RemoveTag(object, tag)
     self.InstanceRemovedSignals[tag]:Fire(object)
 end
 
+function module:GetTags(object)
+    return object.Tags
+end
+
 Class.RegisterClass("CollectionService", module)
 
 return module
