@@ -39,7 +39,7 @@ function module:Emit(amount)
     local sizeRange = transform.RenderSize/2
     for i = 1, (amount or 1) do
         local newParticle = {
-            Position = transform.RenderPosition + Vector2.new(math.random(-sizeRange.X, sizeRange.X), math.random(-sizeRange.Y, sizeRange.Y)),
+            Position = Vector2.new(transform.RenderCFrame.X, transform.RenderCFrame.Y) + Vector2.new(math.random(-sizeRange.X, sizeRange.X), math.random(-sizeRange.Y, sizeRange.Y)),
             ExpectedLifeTime = self.LifeTime:GetValue(),
             Speed = self.Speed:GetValue(),
             EmissionDirection = Vector2.FromAngle(math.rad(self.EmissionAngleRange:GetValue()));

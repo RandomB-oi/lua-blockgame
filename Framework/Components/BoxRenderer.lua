@@ -35,9 +35,9 @@ function module.new(self)
 			self.Object.Parent._drawn:Wait()
 		end
 
-		local cf, size = CFrame.new(transform.RenderPosition.X, transform.RenderPosition.Y, transform.RenderRotation), transform.RenderSize
-		if transform:IsA("GuiTransform") then
-			cf = cf * CFrame.new(size.X/2, -size.Y/2)
+		local cf, size = transform.RenderCFrame, transform.RenderSize
+		if transform:IsA("GuiTransform") then -- guis start from the top left
+			cf = cf * (size/2)
 		end
 		local color = self.Color
 

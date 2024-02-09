@@ -16,6 +16,10 @@ module.new = function(x,y, r)
     return self
 end
 
+module.Angle = function(r)
+    return module.new(0, 0, r)
+end
+
 -- makes it point its rightVector towards the point
 module.LookAt = function(from, to)
     local diff = to - from
@@ -50,8 +54,8 @@ end
 
 function module:__mul(other)
     local movedX = self:RightVector() * other.X
-	local movedY = self:UpVector() * other.Y
-	local r = other.R + self.R
+	local movedY = self:DownVector() * other.Y
+	local r = self.R + (other.R or 0)
 
 	return module.new(
 		self.X + movedX.X + movedY.X,

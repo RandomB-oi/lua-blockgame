@@ -1,42 +1,40 @@
 local module = {}
 module.__index = module
-module.__derives = "Component"
+module.__derives = "Transform"
 
 function module.new(self)
 	local run = GetService("RunService")
+
+    self.CFrame = nil
+    self.Size = nil
 
     self.Size = UDim2.new(0, 100, 0, 100)
     self.Position = UDim2.new(0, 0, 0, 0)
     self.AnchorPoint = Vector2.new(0, 0)
     self.Rotation = 0
 
-	self.Maid:GiveTask(run.Update:Connect(function()
-        self:CalculateRenderInfo()
-	end))
-
 	return self
 end
 
 function module:CalculateRenderInfo()
-    local parentPos, parentSize, parentRotation
+    local parentCF, parentSize
     if self.Object.Parent then
         local parentTransform = self.Object.Parent:GetTransform()
-        parentPos, parentSize, parentRotation = parentTransform:CalculateRenderInfo()
+        parentCF, parentSize = parentTransform.RenderCFrame, parentTransform.RenderSize --parentTransform:CalculateRenderInfo()
+        if not (parentCF and parentSize) then return end
     else
-        parentPos = Vector2.new(0, 0)
-        parentSize = Vector2.new(800, 600) -- screen size, but im too lazy to make it get the window size
-        parentRotation = 0
+        parentCF = CFrame.new(0, 0, 0)
+        local w, h = love.graphics.getDimensions()
+        parentSize = Vector2.new(w, h) -- screen size, but im too lazy to make it get the window size
     end
 
     local size = self.Size:Calculate(parentSize)
-	local position = parentPos + self.Position:Calculate(parentSize) - size * self.AnchorPoint-- + size/2
-    local rot = parentRotation + self.Rotation
+	local cf = (parentCF * (self.Position:Calculate(parentSize))) * CFrame.Angle(math.rad(self.Rotation)) * (size * (-self.AnchorPoint))
 
-    self.RenderPosition = position
+    self.RenderCFrame = cf
     self.RenderSize = size
-    self.RenderRotation = rot
 
-    return position, size, rot
+    return cf, size
 end
 
 Class.RegisterComponent("GuiTransform", module)

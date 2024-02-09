@@ -65,19 +65,41 @@ module.Start = function()
     rendererComponent.Color = Color4.new(1,0,0,0.5)
 
     local topbarTransform = topBar:GetTransform()
-    topbarTransform.Position = UDim2.new(0.5, 0, 0, 6)
-    topbarTransform.Size = UDim2.new(1, -12, 0.2, -6)
+    topbarTransform.Position = UDim2.new(0.5, 0, 0, 0)
+    topbarTransform.Size = UDim2.new(1, -12, 0.2, 0)
     topbarTransform.AnchorPoint = Vector2.new(0.5, 0)
-    -- topBar.Rotation = 45
+    topbarTransform.Rotation = 90
 
     box:SetParent(topBar)
     box2:SetParent(topBar)
+
+    local part = Class.new("Instance")
+    part:AddTag("Transform")
+    part:AddTag("BoxRenderer")
+    part:GetComponent("BoxRenderer").Color = Color4.new(1,1,1,0.5)
+    local partTransform = part:GetTransform()
+    partTransform.CFrame = CFrame.new(400, 300)
+    partTransform.Size = Vector2.new(1.5, 1)
+
+    local part2 = Class.new("Instance")
+    part2:AddTag("Transform")
+    part2:AddTag("BoxRenderer")
+    part2:GetComponent("BoxRenderer").Color = Color4.new(1,1,1,0.5)
+    part2:SetParent(part)
+
+    local part2Transform = part2:GetTransform()
+    part2Transform.CFrame = CFrame.new(25, 25)
+    part2Transform.Size = Vector2.new(0.2, 0.2)
+    
 
     local emitter = Class.new("ParticleEmitter")
     local emitterTransform = emitter:GetTransform()
 
     run.Update:Connect(function()
         local mx,my = love.mouse.getPosition()
+
+        local relativePos = partTransform:GetRelativePosition(Vector2.new(mx,my))
+        love.graphics.circle("fill", relativePos.X, relativePos.Y, 10)
         emitterTransform.CFrame = CFrame.new(mx, my)
     end)
 

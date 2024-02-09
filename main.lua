@@ -74,6 +74,8 @@ local function load()
         DrawFrameCount(highestFrame, 20, 40, 1)
         DrawFrameCount(lowestFrame, 20, 60, 1)
     end)
+
+    love.window.setMode(800, 600)
 end
 
 local function update(dt)

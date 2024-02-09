@@ -32,6 +32,10 @@ function module:Lerp(other, a)
     )
 end
 
+function module:__unm()
+    return module.new(-self.X, -self.Y)
+end
+
 function module:__add(other)
     return module.new(self.X + other.X, self.Y + other.Y)
 end

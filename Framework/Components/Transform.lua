@@ -6,7 +6,7 @@ function module.new(self)
 	local run = GetService("RunService")
 
     self.CFrame = CFrame.new(0, 0, 0)
-    self.Size = Vector2.new(100, 100)
+    self.Size = Vector2.new(1, 1)
 
     self.Maid:GiveTask(run.Update:Connect(function()
         self:CalculateRenderInfo()
@@ -16,11 +16,27 @@ function module.new(self)
 end
 
 function module:CalculateRenderInfo()
-    self.RenderPosition = Vector2.new(self.CFrame.X, self.CFrame.Y)
-    self.RenderSize = self.Size
-    self.RenderRotation = self.CFrame.R
+    local parentCF, parentSize
+    if self.Object.Parent then
+        local parentTransform = self.Object.Parent:GetTransform()
+        parentCF, parentSize = parentTransform.RenderCFrame, parentTransform.RenderSize --parentTransform:CalculateRenderInfo()
+        if not (parentCF and parentSize) then return end
+    else
+        parentCF = CFrame.new(0, 0, 0)
+        parentSize = Vector2.new(100, 100)
+    end
 
-    return self.RenderPosition, self.RenderSize, self.RenderRotation
+    local cf = parentCF * self.CFrame
+    local size = parentSize * self.Size
+
+    self.RenderCFrame = cf
+    self.RenderSize = size
+
+    return self.RenderCFrame, self.RenderSize
+end
+
+function module:GetRelativePosition(point)
+    return -self.RenderCFrame * point
 end
 
 Class.RegisterComponent("Transform", module)
