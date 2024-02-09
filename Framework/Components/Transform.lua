@@ -23,11 +23,11 @@ function module:CalculateRenderInfo()
         if not (parentCF and parentSize) then return end
     else
         parentCF = CFrame.new(0, 0, 0)
-        parentSize = Vector2.new(100, 100)
+        parentSize = Vector2.new(1, 1)
     end
 
     local cf = parentCF * self.CFrame
-    local size = parentSize * self.Size
+    local size = self.Size
 
     self.RenderCFrame = cf
     self.RenderSize = size
@@ -36,7 +36,7 @@ function module:CalculateRenderInfo()
 end
 
 function module:GetRelativePosition(point)
-    return -self.RenderCFrame * point
+    return (-self.RenderCFrame) * point --- Vector2.new(self.RenderCFrame.X/2, self.RenderCFrame.Y/2)
 end
 
 Class.RegisterComponent("Transform", module)

@@ -39,8 +39,8 @@ return {
 
     UserInputState = NewEnumCategory("UserInputState", {
         Began = NewEntry(1),
-        Ended = NewEntry(1),
-        Changed = NewEntry(1),
+        Ended = NewEntry(2),
+        Changed = NewEntry(3),
     }),
 
     KeyCode = NewEnumCategory("KeyCode", {

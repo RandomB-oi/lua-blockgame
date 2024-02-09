@@ -1,6 +1,6 @@
 local module = {}
 module.__index = module
-module.__derives = "Component"
+module.__derives = "Renderer"
 
 local red, green
 function module.Init()
@@ -26,7 +26,6 @@ end
 function module.new(self)
 	local run = GetService("RunService")
 
-	self.Color = Color4.new(1,1,1,1)
 	self.Maid:GiveTask(run.Draw:Connect(function()
 		local transform = self.Object:GetTransform()
 		if not transform then return end
@@ -39,11 +38,11 @@ function module.new(self)
 		if transform:IsA("GuiTransform") then -- guis start from the top left
 			cf = cf * (size/2)
 		end
-		local color = self.Color
 
-		DrawRectangle(cf, size, color)
-		-- DrawRectangle(cf * CFrame.new(0, 50), Vector2.new(10, 10), red)
-		-- DrawRectangle(cf * CFrame.new(50, 0), Vector2.new(10, 10), green)
+		DrawRectangle(cf, size, self:GetColor())
+		DrawRectangle(cf * CFrame.new(0, size.Y/2 + 10), Vector2.new(10, 10), red)
+		DrawRectangle(cf * CFrame.new(size.X/2 + 10, 0), Vector2.new(10, 10), green)
+
 		self.Object._drawn:Fire()
 	end))
 

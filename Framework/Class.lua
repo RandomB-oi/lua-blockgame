@@ -100,11 +100,14 @@ Module.new = function(name, ...)
 end
 
 Module.IsA = function(class, className)
-	if class.Name == className then return true end
+	if rawget(class, "_fileName") == className then
+		return true
+	end
     local derives = rawget(class, "__derives")
 	if derives then
 		return Module.IsA(Module.GetClass(derives), className)
 	end
+	return false
 end
 
 Module.LoadDirectory = function(directory, descendants)
@@ -151,11 +154,11 @@ end
 
 Module.GetComponent = function(object, componentName, _iterated)
 	local class = Module.GetClass(componentName)
-	if not (class and class.Objects) then return end
+	if not (class) then return end
 
 	local _iterated = _iterated or {}
 
-	if not class.Objects[object] then
+	if class.Objects and not class.Objects[object] or not class.Objects then
 		for _, tag in pairs(object:GetTags()) do
 			if not table.find(_iterated, tag) then
                 table.insert(_iterated, tag)
@@ -168,7 +171,7 @@ Module.GetComponent = function(object, componentName, _iterated)
 		end
 	end
 
-	return class.Objects[object]
+	return class.Objects and class.Objects[object]
 end
 
 return Module

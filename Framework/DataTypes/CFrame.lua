@@ -45,6 +45,12 @@ function module:LeftVector()
     return Vector2.new(-math.sin(a), math.cos(a))
 end
 
+function module:Inverse()
+    return -self
+end
+function module:__unm()
+    return module.new(self.X*-1, -self.Y*-1, -self.R*-1)
+end
 function module:__add(other)
     return module.new(self.X + other.X, self.Y + other.Y, self.R)
 end

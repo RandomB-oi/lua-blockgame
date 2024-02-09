@@ -10,7 +10,7 @@ function module.new(object)
 end
 
 function module:IsA(className)
-	return Class.IsA(self, className)
+	return Class.IsA(getmetatable(self), className)
 end
 
 function module:Destroy()

@@ -99,7 +99,7 @@ module.Init = function()
         keyPressed(key, true)
     end
     love.mousereleased = function(x,y, key)
-        -- keyReleased(key, true)
+        keyReleased(key, true)
     end
 end
 
