@@ -3,7 +3,7 @@ module.__index = module
 module.__derives = "Component"
 
 function module.new(self)
-	local run = GetService("RunService")
+	local run = game:GetService("RunService")
 
     self.CFrame = CFrame.new(0, 0, 0)
     self.Size = Vector2.new(1, 1)
@@ -35,9 +35,9 @@ function module:CalculateRenderInfo()
     return self.RenderCFrame, self.RenderSize
 end
 
-function module:GetRelativePosition(point)
-    return (-self.RenderCFrame) * point --- Vector2.new(self.RenderCFrame.X/2, self.RenderCFrame.Y/2)
-end
+-- function module:GetRelativePosition(point)
+--     return (-self.RenderCFrame) * point --- Vector2.new(self.RenderCFrame.X/2, self.RenderCFrame.Y/2)
+-- end
 
 Class.RegisterComponent("Transform", module)
 

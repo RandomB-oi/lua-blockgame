@@ -4,6 +4,7 @@
         "Maid"
     ],
     "Lua.diagnostics.disable": [
-        "deprecated"
+        "deprecated",
+        "lowercase-global"
     ]
 }

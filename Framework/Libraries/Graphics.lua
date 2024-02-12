@@ -342,4 +342,14 @@ love.graphics.drawCustomText = function(text, x,y,scale, allignment)
 	end
 end
 
+love.graphics.cleanDrawImage = function(imageObject, renderCFrame, renderSize)
+	local imageSize = Vector2.new(imageObject:getDimensions())
+	local scale = renderSize / imageSize
+	love.graphics.push()
+	love.graphics.translate(renderCFrame.X, renderCFrame.Y)
+	love.graphics.rotate(renderCFrame.R)
+	love.graphics.draw(imageObject, -renderSize.X/2, -renderSize.Y/2, 0, scale.X, scale.Y)
+	love.graphics.pop()
+end
+
 return {}

@@ -28,7 +28,7 @@ local function load()
     print("done loading")
     -- require("Game.main")
 
-    local run = GetService("RunService")
+    local run = game:GetService("RunService")
     local lastDT = 1/60
     local frames = {}
 
@@ -61,31 +61,39 @@ local function load()
     end)
 
     run.Draw:Connect(function()
-        local lowestFrame = math.huge
-        local highestFrame = -math.huge
         local currentFrame = frames[#frames]
+        -- local lowestFrame = math.huge
+        -- local highestFrame = -math.huge
         
-        for i, v in ipairs(frames) do
-            lowestFrame = math.min(lowestFrame, v[2])
-            highestFrame = math.max(highestFrame, v[2])
-        end
+        -- for i, v in ipairs(frames) do
+        --     lowestFrame = math.min(lowestFrame, v[2])
+        --     highestFrame = math.max(highestFrame, v[2])
+        -- end
 
         DrawFrameCount(currentFrame, 20, 20, 1)
-        DrawFrameCount(highestFrame, 20, 40, 1)
-        DrawFrameCount(lowestFrame, 20, 60, 1)
+        -- DrawFrameCount(highestFrame, 20, 40, 1)
+        -- DrawFrameCount(lowestFrame, 20, 60, 1)
     end)
 
     love.window.setMode(800, 600)
 end
 
 local function update(dt)
-    local run = GetService("RunService")
+    local run = game:GetService("RunService")
     run.Update:Fire(dt)
 end
 
 local function draw()
-    local run = GetService("RunService")
+    local run = game:GetService("RunService")
+    if game.Camera then
+        local cameraTransform = game.Camera:GetTransform()
+        love.graphics.push()
+        love.graphics.translate(cameraTransform.CFrame.X - cameraTransform.Size.X/2, cameraTransform.CFrame.Y - cameraTransform.Size.Y/2)
+    end
     run.Draw:Fire()
+    if game.Camera then
+        love.graphics.pop()
+    end
 end
 
 love.load = load

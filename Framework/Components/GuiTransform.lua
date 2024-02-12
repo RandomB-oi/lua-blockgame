@@ -3,7 +3,7 @@ module.__index = module
 module.__derives = "Transform"
 
 function module.new(self)
-	local run = GetService("RunService")
+	local run = game:GetService("RunService")
 
     self.CFrame = nil
     self.Size = nil

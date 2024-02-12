@@ -79,12 +79,12 @@ end
 
 module.Init = function()
     local function keyPressed(key, mouse)
-        local uis = GetService("UserInputService")
+        local uis = game:GetService("UserInputService")
         local inputObject = uis:GetEnumsForInput(key, mouse, Enum.UserInputState.Began)
         uis:SimulateInput(inputObject)
     end
     local function keyReleased(key, mouse)
-        local uis = GetService("UserInputService")
+        local uis = game:GetService("UserInputService")
         local inputObject = uis:GetEnumsForInput(key, mouse, Enum.UserInputState.Ended)
         uis:SimulateInput(inputObject)
     end

@@ -6,7 +6,7 @@ local RequiredModules = {}
 local AlreadyRequiredModules = {}
 
 local function BindComponents()
-    local CollectionService = GetService("CollectionService")
+    local CollectionService = game:GetService("CollectionService")
 	for name, component in pairs(Components) do
 		local function newObject(object)
 			if component.Objects[object] then return end

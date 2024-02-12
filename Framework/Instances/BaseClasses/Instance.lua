@@ -67,19 +67,19 @@ function module:GetAttributes()
 end
 
 function module:HasTag(tag)
-    return GetService("CollectionService"):HasTag(self, tag)
+    return game:GetService("CollectionService"):HasTag(self, tag)
 end
 
 function module:AddTag(tag)
-    return GetService("CollectionService"):AddTag(self, tag)
+    return game:GetService("CollectionService"):AddTag(self, tag)
 end
 
 function module:RemoveTag(tag)
-    return GetService("CollectionService"):RemoveTag(self, tag)
+    return game:GetService("CollectionService"):RemoveTag(self, tag)
 end
 
 function module:GetTags()
-    return GetService("CollectionService"):GetTags(self)
+    return game:GetService("CollectionService"):GetTags(self)
 end
 
 function module:GetComponent(name)

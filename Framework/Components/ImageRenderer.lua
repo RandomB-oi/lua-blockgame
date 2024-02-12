@@ -2,12 +2,6 @@ local module = {}
 module.__index = module
 module.__derives = "Renderer"
 
-local red, green
-function module.Init()
-	red = Color4.new(1,0,0,1)
-	green = Color4.new(0,1,0,1)
-end
-
 local function DrawRectangle(cf, size, color)
 	local width = size.X
 	local height = size.Y
@@ -39,9 +33,9 @@ function module.new(self)
 			cf = cf * (size/2)
 		end
 
-		DrawRectangle(cf, size, self:GetColor())
-		-- DrawRectangle(cf * CFrame.new(0, -(size.Y/2 + 10)), Vector2.new(10, 10), red)
-		-- DrawRectangle(cf * CFrame.new(size.X/2 + 10, 0), Vector2.new(10, 10), green)
+        self:GetColor():Apply()
+        love.graphics.cleanDrawImage(self.Image, cf, size)
+		-- DrawRectangle(cf, size, self:GetColor())
 
 		self.Object._drawn:Fire()
 	end))
@@ -49,6 +43,6 @@ function module.new(self)
 	return self
 end
 
-Class.RegisterComponent("BoxRenderer", module)
+Class.RegisterComponent("ImageRenderer", module)
 
 return module

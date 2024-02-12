@@ -3,8 +3,8 @@ module.__index = module
 module.__derives = "Component"
 
 function module.new(self)
-	local run = GetService("RunService")
-	local uis = GetService("UserInputService")
+	local run = game:GetService("RunService")
+	local uis = game:GetService("UserInputService")
 
     self.Activated = Class.new("Signal")
     self.Deactivated = Class.new("Signal")

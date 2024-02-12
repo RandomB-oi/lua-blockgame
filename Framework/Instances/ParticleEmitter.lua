@@ -23,7 +23,7 @@ module.new = function(self)
     self.Particles = {}
     self.LastEmit = 0
 	
-    local run = GetService("RunService")
+    local run = game:GetService("RunService")
 	self.Maid:GiveTask(run.Update:Connect(function(dt)
 		self:StepParticles(dt)
 	end))
