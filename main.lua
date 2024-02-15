@@ -1,5 +1,7 @@
 -- the entrypoint
 local function load()
+    love.graphics.setDefaultFilter("nearest", "nearest")
+    
     table = require("Framework.Libraries.Table")
     string = require("Framework.Libraries.String")
     math = require("Framework.Libraries.Math")
@@ -94,6 +96,7 @@ local function draw()
     if game.Camera then
         love.graphics.pop()
     end
+    run.GUIDraw:Fire()
 end
 
 love.load = load

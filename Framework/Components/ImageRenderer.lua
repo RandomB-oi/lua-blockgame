@@ -24,9 +24,7 @@ function module.new(self)
 		local transform = self.Object:GetTransform()
 		if not transform then return end
 
-		if self.Object.Parent then
-			self.Object.Parent._drawn:Wait()
-		end
+		self:WaitForParentToRender()
 
 		local cf, size = transform.RenderCFrame, transform.RenderSize
 		if transform:IsA("GuiTransform") then -- guis start from the top left

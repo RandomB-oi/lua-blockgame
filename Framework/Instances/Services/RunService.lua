@@ -5,6 +5,7 @@ module.__derives = "Service"
 module.new = function(self)
     self.Update = Class.new("Signal")
     self.Draw = Class.new("Signal")
+    self.GUIDraw = Class.new("Signal")
     return self
 end
 

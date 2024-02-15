@@ -24,15 +24,11 @@ local function DrawRectangle(cf, size, color)
 end
 
 function module.new(self)
-	local run = game:GetService("RunService")
-
-	self.Maid:GiveTask(run.Draw:Connect(function()
+	self:BindRendering(function()
 		local transform = self.Object:GetTransform()
 		if not transform then return end
 
-		if self.Object.Parent then
-			self.Object.Parent._drawn:Wait()
-		end
+		self:WaitForParentToRender()
 
 		local cf, size = transform.RenderCFrame, transform.RenderSize
 		if transform:IsA("GuiTransform") then -- guis start from the top left
@@ -44,7 +40,7 @@ function module.new(self)
 		-- DrawRectangle(cf * CFrame.new(size.X/2 + 10, 0), Vector2.new(10, 10), green)
 
 		self.Object._drawn:Fire()
-	end))
+	end)
 
 	return self
 end

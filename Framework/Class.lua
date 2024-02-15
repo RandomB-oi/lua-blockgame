@@ -53,6 +53,7 @@ Module.GetClass = function(name)
 end
 
 Module.RegisterClass = function(name, class)
+	class.Name = name
 	Classes[name] = class
 end
 
