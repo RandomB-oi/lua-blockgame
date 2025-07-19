@@ -42,9 +42,13 @@ end
 
 function module:IsHovering()
     local transform = self.Object:GetTransform()
+    local collider = self.Object:GetComponent("Collider")
     local mx, my = love.mouse.getPosition()
 
     local cf, size = transform.RenderCFrame, transform.RenderSize
+    if collider then
+        cf = collider:GetCF()
+    end
     cf = cf * (-size/2)
 
     return

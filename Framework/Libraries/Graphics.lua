@@ -352,4 +352,19 @@ love.graphics.cleanDrawImage = function(imageObject, renderCFrame, renderSize)
 	love.graphics.pop()
 end
 
+love.graphics.drawRectangle = function(cf, size, color, mode)
+	local width = size.X
+	local height = size.Y
+	local x = cf.X
+	local y = cf.Y
+	local r = cf.R
+
+	love.graphics.push()
+	love.graphics.translate(x, y)
+	love.graphics.rotate(r)
+	color:Apply()
+	love.graphics.rectangle(mode or "fill", -width/2, -height/2, width, height)
+	love.graphics.pop()
+end
+
 return {}

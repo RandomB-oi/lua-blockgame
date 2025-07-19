@@ -8,6 +8,12 @@ module.RenderSize = 50
 function module.new(self)
 	local run = game:GetService("RunService")
 
+    local collider = self.Object:GetComponent("Collider")
+    if collider then
+        collider.Size.X = module.BlockSize
+        collider.Size.Y = module.BlockSize
+    end
+
     self.X = 0
     self.Y = 0
 

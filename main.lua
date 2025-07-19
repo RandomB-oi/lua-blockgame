@@ -92,7 +92,9 @@ local function draw()
         love.graphics.push()
         love.graphics.translate(cameraTransform.CFrame.X - cameraTransform.Size.X/2, cameraTransform.CFrame.Y - cameraTransform.Size.Y/2)
     end
+
     run.Draw:Fire()
+
     if game.Camera then
         love.graphics.pop()
     end

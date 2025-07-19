@@ -18,8 +18,31 @@ function module.new(self)
 	return self
 end
 
+function module:ShouldRender()
+    if true then return true end
+    local transform = self.Object:GetTransform()
+
+    local cameraTransform = game.Camera:GetTransform()
+
+    local parentRenderer = self.Object.Parent and self.Object.Parent:GetComponent("Renderer")
+    if parentRenderer and not parentRenderer:ShouldRender() then
+        return false
+    end
+
+    if transform:IsA("GuiTransform") then
+        return true
+    end
+
+    return 
+    transform.CFrame.X > cameraTransform.CFrame.X and
+    transform.CFrame.Y > cameraTransform.CFrame.Y and
+    transform.CFrame.X < cameraTransform.CFrame.X + cameraTransform.Size.X and
+    transform.CFrame.Y < cameraTransform.CFrame.Y + cameraTransform.Size.Y
+end
+
 function module:WaitForParentToRender()
-    if self.Object.Parent and self.Object.Parent:GetComponent("Renderer") then
+    local parentRenderer = self.Object.Parent and self.Object.Parent:GetComponent("Renderer")
+    if parentRenderer and parentRenderer:ShouldRender() then
         self.Object.Parent._drawn:Wait()
     end
 end
@@ -27,6 +50,8 @@ end
 function module:BindRendering(callback)
     local transform = self.Object:GetTransform()
     local run = game:GetService("RunService")
+
+    if not self:ShouldRender() then return end
 
     if transform:IsA("GuiTransform") then
         self.Maid.Render = run.GUIDraw:Connect(callback)

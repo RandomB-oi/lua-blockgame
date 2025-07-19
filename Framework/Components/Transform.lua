@@ -5,8 +5,8 @@ module.__derives = "Component"
 function module.new(self)
 	local run = game:GetService("RunService")
 
-    self.CFrame = CFrame.new(0, 0, 0)
-    self.Size = Vector2.new(1, 1)
+    self.CFrame = CFrame.new(100, 100, 0)
+    self.Size = Vector2.new(100, 100)
 
     self.Maid:GiveTask(run.Update:Connect(function()
         self:CalculateRenderInfo()

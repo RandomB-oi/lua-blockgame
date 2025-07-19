@@ -27,6 +27,10 @@ module.LookAt = function(from, to)
     return module.new(from.X, from.Y, math.atan2(diff.Y, diff.X))
 end
 
+function module:ToVector2()
+    return Vector2.new(self.X, self.Y)
+end
+
 function module:UpVector()
     local a = self.R
     return Vector2.new(math.sin(a), -math.cos(a))
@@ -49,7 +53,7 @@ function module:Inverse()
     return -self
 end
 function module:__unm()
-    return module.new(self.X*-1, -self.Y*-1, -self.R*-1)
+    return module.new(-self.X, -self.Y, -self.R)
 end
 function module:__add(other)
     return module.new(self.X + other.X, self.Y + other.Y, self.R)

@@ -21,6 +21,10 @@ function module:Length()
     return math.sqrt(self.X ^ 2 + self.Y ^ 2)
 end
 
+function module:ToCFrame(r)
+    return CFrame.new(self.X, self.Y, r)
+end
+
 function module:Unit()
     return self/self:Length()
 end

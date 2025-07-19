@@ -22,6 +22,17 @@ local function NewEntry(value)
     }, EntryMeta)
 end
 return {
+    CollisionLayer = NewEnumCategory("ContextActionResult", {
+        Default = NewEntry(0),
+        Layer1 = NewEntry(1),
+        Layer2 = NewEntry(2),
+        Layer3 = NewEntry(3),
+        Layer4 = NewEntry(4),
+        Layer5 = NewEntry(5),
+        Layer6 = NewEntry(6),
+        Layer7 = NewEntry(7),
+    }),
+
     ContextActionResult = NewEnumCategory("ContextActionResult", {
         Sink = NewEntry(1),
         Pass = NewEntry(2),
